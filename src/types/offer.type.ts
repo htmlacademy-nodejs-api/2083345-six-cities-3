@@ -1,7 +1,7 @@
-import {User} from './user.type.js';
-import {Coordinates} from './coordinates.type';
+import {UserType} from './user.type.js';
+import {CoordinatesType} from './coordinates.type.js';
 
-export type Offer = {
+export type OfferType = {
   title: string;
   description: string;
   postedDate: Date;
@@ -16,6 +16,6 @@ export type Offer = {
   guests: number;
   price: number;
   features: string[];
-  user: User;
-  coordinates: Coordinates;
+  user: UserType;
+  coordinates: CoordinatesType;
 }

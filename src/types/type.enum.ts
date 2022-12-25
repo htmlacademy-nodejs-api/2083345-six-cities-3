@@ -1,4 +1,4 @@
-export enum Type {
+export enum TypeEnum {
   Apartment = 'Apartment',
   House = 'House',
   Room = 'Room',

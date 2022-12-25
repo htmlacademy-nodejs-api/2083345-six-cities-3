@@ -1,0 +1,110 @@
+{
+  "api": {
+    "titles": [
+      "Luxurious Apartment For Sale",
+      "Tidy Room For Rent",
+      "4-Bedroom House For a Big Family",
+      "Cheap Hotel Rooms For Everyone",
+      "2-Room Apartment For Students"
+    ],
+    "descriptions": [
+      "Maecenas cursus, quam in ullamcorper varius, turpis eros convallis lacus, a convallis tortor sem a nibh.",
+      "Duis a lacus massa. Fusce viverra nisl justo, quis tristique massa varius et.",
+      "Duis posuere, metus tempor sagittis mattis, lectus ante facilisis massa, sit amet ornare dolor purus eu libero.",
+      "Morbi facilisis, sapien a venenatis feugiat, eros lectus cursus nisl, vel sagittis velit quam sit amet nunc.",
+      "Maecenas non dictum enim, a luctus velit. Donec a erat id dui placerat lobortis.",
+      "Proin ac gravida quam. Integer at rutrum felis. Sed non eros nec nisl maximus egestas.",
+      "Maecenas non dictum enim, a luctus velit. Donec a erat id dui placerat lobortis."
+    ],
+    "postedDates": [
+      "2022-04-06T08:45:40.283Z",
+      "2021-02-05T10:44:36.123Z",
+      "2022-06-01T15:05:56.200Z",
+      "2022-07-02T05:34:55.344Z",
+      "2022-08-19T19:46:01.001Z"
+    ],
+    "cities": [
+      "Paris",
+      "Cologne",
+      "Brussels",
+      "Amsterdam",
+      "Hamburg",
+      "Dusseldorf"
+    ],
+    "imagePreviews": [
+      "image1.png",
+      "image2.png",
+      "image3.png",
+      "image4.png",
+      "image5.png"
+    ],
+    "imagesSelection": [
+      "image1.png",
+      "image2.png",
+      "image3.png",
+      "image4.png",
+      "image5.png",
+      "image6.png",
+      "image7.png",
+      "image8.png",
+      "image9.png",
+      "image10.png",
+      "image11.png",
+      "image12.png"
+    ],
+    "types": [
+      "Apartment",
+      "House",
+      "Room",
+      "Hotel"
+    ],
+    "featuresSelection": [
+      "Breakfast",
+      "Air Conditioning",
+      "Laptop Friendly Workspace",
+      "Baby Seat",
+      "Washer",
+      "Towels",
+      "Fridge"
+    ],
+    "users": [
+      {
+        "name": "Helen",
+        "email": "bigcat@mail.com",
+        "avatarPath": "avt1.jpg",
+        "password": "splj3",
+        "status": "Premium"
+      },
+      {
+        "name": "Ivan",
+        "email": "tttyy@gmal.com",
+        "avatarPath": "avt2.jpg",
+        "password": "fg635e",
+        "status": "Default"
+      },
+      {
+        "name": "Helen",
+        "email": "bigcat@mail.com",
+        "avatarPath": "avt3.jpg",
+        "password": "splj3",
+        "status": "Premium"
+      },
+      {
+        "name": "Jason",
+        "email": "jjj@outlook.com",
+        "avatarPath": "avt4.jpg",
+        "password": "kkjjkkk",
+        "status": "Default"
+      },
+      {
+        "name": "BiGMaN",
+        "email": "bm@gmail.com",
+        "avatarPath": "avt5.jpg",
+        "password": "sdfgjkjhgf",
+        "status": "Default"
+      }
+    ]
+  }
+}
+
+

@@ -1,4 +1,4 @@
-export enum UserType {
+export enum UserTypeEnum {
   Default = 'Default',
   Pro = 'Pro'
 }
