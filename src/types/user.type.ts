@@ -5,3 +5,10 @@ export type UserType = {
   password: string;
   status: string
 }
+
+export type BaseUserType = {
+  name: string;
+  email: string;
+  avatarPath: string;
+  status: string
+}

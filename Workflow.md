@@ -99,10 +99,16 @@ npm run ts ./src/cli.ts -- --version
 ## import
 
 ```bash 
-npm run ts ./src/cli.ts -- --import <path>
+npm run ts ./src/cli.ts -- --import <path> <login> <password> <ip> <dbname> <salt>
 ```
 
 Импортирует данные из TSV-файла, преобразуя текстовые строки в объекты.
+
+Пример:
+```bash 
+npm run ts ./src/cli.ts -- --import ./mocks/test-data.tsv admin test 127.0.0.1 mongo abcd1234
+```
+
 
 ## generate
 
