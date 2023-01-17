@@ -103,7 +103,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   public price!: number;
 
   @prop({})
-  public commentCount!: number;
+  public commentQty!: number;
 
   @prop({
     required: true,

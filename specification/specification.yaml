@@ -404,7 +404,7 @@ components:
           type: number
           example: 2000
 
-        commentsQty:
+        commentQty:
           type: number
           example: 21
 
