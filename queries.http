@@ -1,0 +1,146 @@
+# Тестовые данные
+GET http://localhost:3123/api HTTP/1.1
+
+###
+
+# Предложения
+## Получить список предложений
+
+GET http://localhost:4000/offers HTTP/1.1
+
+###
+
+## Создать предложение
+
+POST http://localhost:4000/offers HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "POST OFFER TEST",
+  "description": "TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST",
+  "postedDate": "2030-04-06T08:45:40.283Z",
+  "city": "Hamburg",
+  "imagePreview": "image99.png",
+  "images": [
+    "image1.png", "image2.png", "image3.png", "image4.png", "image5.png", "image100.png"
+  ],
+  "premium": true,
+  "favorite": true,
+  "rating": 1,
+  "type": "Apartment",
+  "rooms": 6,
+  "guests": 1,
+  "price": 10000,
+  "features": [],
+  "coordinates": {
+    "latitude": "53.550341",
+    "longitude": "10.000654"
+  },
+  "user": "63ca732165f4a67420c775a7"
+}
+
+###
+
+## Редактировать предложение
+
+POST http://localhost:4000/offers/63ce1d6467a156218d344acd HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "POST OFFER TEST - EDITED SUCCESSFULLY!",
+  "description": "TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST",
+  "postedDate": "2020-04-06T08:45:40.283Z",
+  "city": "Hamburg",
+  "imagePreview": "image99.png",
+  "images": [
+    "image1.png", "image2.png", "image3.png", "image4.png", "image5.png", "image100.png"
+  ],
+  "premium": false,
+  "favorite": false,
+  "rating": 1,
+  "type": "Apartment",
+  "rooms": 6,
+  "guests": 1,
+  "price": 10000,
+  "features": [],
+  "coordinates": {
+    "latitude": "53.550341",
+    "longitude": "10.000654"
+  }
+}
+
+###
+
+## Получить конкретное предложение по offerId
+
+GET http://localhost:4000/offers/63ce1d6467a156218d344acd HTTP/1.1
+
+###
+
+## Удалить предложение по offerId
+
+DELETE http://localhost:4000/offers/63ce1d6467a156218d344acd HTTP/1.1
+
+###
+
+## Получить список premium-предложений в определенном городе
+
+GET http://localhost:4000/offers/premium/Dusseldorf HTTP/1.1
+
+###
+
+## Получить список favorite-предложений авторизованного пользователя - WIP
+
+GET http://localhost:4000/offers/favorite HTTP/1.1
+
+###
+
+## Добавить предложение в список "избранное" авторизованного пользователя - WIP
+
+POST http://localhost:4000/offers/favorite/63cc1704978bd83622df7f39 HTTP/1.1
+
+###
+
+## Удалить предложение из списка "избранное" авторизованного пользователя - WIP
+
+DELETE http://localhost:4000/offers/favorite/63cc1704978bd83622df7f39 HTTP/1.1
+
+###
+
+
+# Комментарии
+## Получить список комментариев к объявлению
+
+GET http://localhost:4000/comments/63ca732165f4a67420c775a9 HTTP/1.1
+
+###
+
+# Пользователи
+## Регистрация пользователя
+
+POST http://localhost:4000/users/register HTTP/1.1
+Content-Type: application/json
+
+{
+ "email": "torans1@overlook.net",
+ "avatarPath": "torrance.png",
+ "name": "Jack",
+ "status": "Premium",
+ "lastname": "Torrance",
+ "password": "shining"
+}
+
+###
+
+## Авторизация пользователя
+
+POST http://localhost:4000/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+ "email": "torans1@overlook.net",
+ "password": "123456"
+}
+
+###
+

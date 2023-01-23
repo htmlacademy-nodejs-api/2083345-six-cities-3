@@ -32,7 +32,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/offer'
+                type: array
+                items:
+                  $ref: '#/components/schemas/offer'
 
     post:
       tags:
@@ -65,11 +67,10 @@ paths:
   /offers/{offerId}:
     parameters:
       - in: path
-        name: offerId   # Note the name is the same as in the path
+        name: offerId
         required: true
         schema:
-          type: integer
-          minimum: 1
+          type: string
 
     get:
       tags:
@@ -83,7 +84,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/offerDetailed'
+                type: array
+                items:
+                  $ref: '#/components/schemas/offerDetailed'
 
     post:
       tags:
@@ -135,7 +138,7 @@ paths:
   /offers/premium/{city}:
     parameters:
       - in: path
-        name: city   # Note the name is the same as in the path
+        name: city
         required: true
         schema:
           type: string
@@ -183,7 +186,7 @@ paths:
   /offers/favorite/{offerId}:
     parameters:
       - in: path
-        name: offerId   # Note the name is the same as in the path
+        name: offerId
         required: true
         schema:
           type: integer
@@ -412,6 +415,10 @@ components:
       type: object
 
       properties:
+        id:
+          type: string
+          example: 63ce1d6467a156218d344acd
+
         title:
           type: string
           example: Комната на двоих
@@ -476,11 +483,17 @@ components:
           type: object
           items:
             $ref: '#/components/schemas/coordinates'
+          example: { latitude: 45.245673, longitude: 34.3498674 }
 
         user:
           type: object
           items:
             $ref: '#/components/schemas/user'
+          example: { }
+
+        commentsQty:
+          type: number
+          example: 4
 
     userLogin:
       type: object

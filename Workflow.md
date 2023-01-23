@@ -106,7 +106,7 @@ npm run ts ./src/cli.ts -- --import <path> <login> <password> <ip> <dbname> <sal
 
 Пример:
 ```bash 
-npm run ts ./src/cli.ts -- --import ./mocks/test-data.tsv admin test 127.0.0.1 mongo abcd1234
+npm run ts ./src/cli.ts -- --import ./mocks/test-data.tsv admin test 127.0.0.1 mongodb abcd1234
 ```
 
 
@@ -122,9 +122,9 @@ npm run ts ./src/cli.ts -- --generate <n> <path> <url>
 Пример: 
 
 ```bash
-npm run ts ./src/cli.ts -- --generate 7 ./mocks/test-data.tsv http://localhost:3123/api
+npm run ts ./src/cli.ts -- --generate 100 ./mocks/test-data.tsv http://localhost:3123/api
 ```
-Сгенерирует 7 тестовых объектов в TSV-файле ./mocks/test.tsv на основе данных, запрошенных с http://localhost:3123/api
+Сгенерирует 1-- тестовых объектов в TSV-файле ./mocks/test.tsv на основе данных, запрошенных с http://localhost:3123/api
 
 ## Структура проекта
 

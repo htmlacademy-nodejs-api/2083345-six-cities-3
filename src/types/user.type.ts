@@ -3,12 +3,21 @@ export type UserType = {
   email: string;
   avatarPath: string;
   password: string;
-  status: string
+  status: string;
 }
 
-export type BaseUserType = {
+export type SafeUserType = {
   name: string;
   email: string;
   avatarPath: string;
   status: string
+}
+
+export type ExtendedUserType = {
+  name: string;
+  email: string;
+  avatarPath: string;
+  password: string;
+  status: string;
+  favorites: string[];
 }

@@ -73,35 +73,40 @@
         "email": "bigcat@mail.com",
         "avatarPath": "avt1.jpg",
         "password": "splj3",
-        "status": "Premium"
+        "status": "Premium",
+        "favorites": "345;235;12"
       },
       {
         "name": "Ivan",
         "email": "tttyy@gmal.com",
         "avatarPath": "avt2.jpg",
         "password": "fg635e",
-        "status": "Default"
+        "status": "Standard",
+        "favorites": "50;112;567"
       },
       {
         "name": "Helen",
         "email": "bigcat@mail.com",
         "avatarPath": "avt3.jpg",
         "password": "splj3",
-        "status": "Premium"
+        "status": "Premium",
+        "favorites": "427;643;979"
       },
       {
         "name": "Jason",
         "email": "jjj@outlook.com",
         "avatarPath": "avt4.jpg",
         "password": "kkjjkkk",
-        "status": "Default"
+        "status": "Standard",
+        "favorites": "769;65;124"
       },
       {
         "name": "BiGMaN",
         "email": "bm@gmail.com",
         "avatarPath": "avt5.jpg",
         "password": "sdfgjkjhgf",
-        "status": "Default"
+        "status": "Standard",
+        "favorites": "553;674;1356"
       }
     ]
   }

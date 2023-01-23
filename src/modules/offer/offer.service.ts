@@ -140,7 +140,21 @@ export default class OfferService implements OfferServiceInterface {
       .exec();
   }
 
-  public async findFavorites(): Promise<DocumentType<OfferEntity>[]> {
-    return this.offerModel.find().exec(); // WIP
+  public async findFavorites(): Promise<DocumentType<OfferEntity>[]> { // WIP
+    console.log('Not yet implemented');
+    return this.offerModel
+      .find().exec();
+  }
+
+  public async addFavorite(offerId: string): Promise<DocumentType<OfferEntity>[]> { // WIP
+    console.log('Not yet implemented', offerId);
+    return this.offerModel
+      .find().exec();
+  }
+
+  public async removeFavorite(offerId: string): Promise<DocumentType<OfferEntity>[]> { // WIP
+    console.log('Not yet implemented', offerId);
+    return this.offerModel
+      .find().exec();
   }
 }

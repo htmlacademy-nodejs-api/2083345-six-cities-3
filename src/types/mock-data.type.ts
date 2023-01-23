@@ -1,4 +1,4 @@
-import {UserType} from './user.type';
+import {ExtendedUserType} from './user.type';
 
 export type MockDataType = {
   titles: string[];
@@ -9,5 +9,5 @@ export type MockDataType = {
   imagesSelection: string[];
   types: string[];
   featuresSelection: string[];
-  users: UserType[];
+  users: ExtendedUserType[];
 };

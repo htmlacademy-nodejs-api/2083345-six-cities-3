@@ -10,7 +10,7 @@ import UserService from '../modules/user/user.service.js';
 import OfferService from '../modules/offer/offer.service.js';
 import {OfferModel} from '../modules/offer/offer.entity.js';
 import {UserModel} from '../modules/user/user.entity.js';
-import {OfferType} from '../types/offer.type.js';
+import {CreateOfferType} from '../types/offer.type.js';
 import {LoggerInterface} from '../common/logger/logger.interface.js';
 import {DatabaseInterface} from '../common/database-client/database.interface.js';
 
@@ -35,7 +35,7 @@ export default class ImportCommand implements CliCommandInterface {
     this.databaseService = new DatabaseService(this.logger);
   }
 
-  private async saveOffer(offer: OfferType) {
+  private async saveOffer(offer: CreateOfferType) {
     const user = await this.userService.findOrCreate({
       ...offer.user,
       password: DEFAULT_USER_PASSWORD
@@ -49,6 +49,7 @@ export default class ImportCommand implements CliCommandInterface {
 
   private async onLine(line: string, resolve: () => void) {
     const offer = createOffer(line);
+    console.log(offer);
     await this.saveOffer(offer);
     resolve();
   }
