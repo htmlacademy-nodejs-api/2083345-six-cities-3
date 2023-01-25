@@ -8,9 +8,6 @@ import {DatabaseInterface} from '../common/database-client/database.interface';
 import {getURI} from '../utils/db.js';
 import {ControllerInterface} from '../common/controller/controller.interface';
 import {ExceptionFilterInterface} from '../common/errors/exception-filter.interface.js';
-import {OfferServiceInterface} from '../modules/offer/offer-service.interface.js';
-import {fillDTO} from '../utils/common.js';
-import OffersResponse from '../modules/offer/response/offers.response.js';
 
 @injectable()
 export default class Application {
@@ -24,7 +21,7 @@ export default class Application {
     @inject(Component.UserController) private userController: ControllerInterface,
     @inject(Component.ExceptionFilterInterface) private exceptionFilter: ExceptionFilterInterface,
 
-    @inject(Component.OfferServiceInterface) private offerService: OfferServiceInterface,
+    //@inject(Component.CommentServiceInterface) private commentService: CommentServiceInterface,
     //@inject(Component.CommentServiceInterface) private commentService: CommentServiceInterface
   ) {
     this.expressApp = express();
@@ -63,10 +60,5 @@ export default class Application {
 
     this.expressApp.listen(this.config.get('PORT'));
     this.logger.info(`Server started on http://localhost:${this.config.get('PORT')}`);
-
-
-    const offers = await this.offerService.find();
-    const offersResponse = fillDTO(OffersResponse, offers[0]);
-    console.log(offersResponse);
   }
 }

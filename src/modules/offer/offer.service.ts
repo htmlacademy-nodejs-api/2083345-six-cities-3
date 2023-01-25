@@ -9,17 +9,19 @@ import UpdateOfferDto from './dto/update-offer.dto.js';
 import {SortType} from '../../types/sort-type.enum.js';
 import mongoose from 'mongoose';
 import {DEFAULT_OFFER_QTY, DEFAULT_PREMIUM_OFFER_QTY, PROJECTED_FIELDS_FIND} from './offer.const.js';
+import {CommentServiceInterface} from '../comment/comment-service.interface';
 
 @injectable()
 export default class OfferService implements OfferServiceInterface {
   constructor(
     @inject(Component.LoggerInterface) private readonly logger: LoggerInterface,
-    @inject(Component.OfferModel) private readonly offerModel: types.ModelType<OfferEntity>
+    @inject(Component.OfferModel) private readonly offerModel: types.ModelType<OfferEntity>,
+    @inject(Component.CommentServiceInterface) private readonly commentService: CommentServiceInterface,
   ) {}
 
   public async create(dto: CreateOfferDto): Promise<DocumentType<OfferEntity>> {
     const result = await this.offerModel.create(dto);
-    this.logger.info(`New offer created: ${dto.title}`);
+    this.logger.info(`New offer created: ${result.title}, ${result._id}`);
 
     return result;
   }
@@ -67,7 +69,8 @@ export default class OfferService implements OfferServiceInterface {
       ]).exec();
   }
 
-  public async find(): Promise<DocumentType<OfferEntity>[]> {
+  public async find(limit?: number | null): Promise<DocumentType<OfferEntity>[]> {
+    const qty = limit ?? DEFAULT_OFFER_QTY;
     return this.offerModel.aggregate([
       {
         $lookup: {
@@ -82,12 +85,12 @@ export default class OfferService implements OfferServiceInterface {
       },
       { $project: PROJECTED_FIELDS_FIND },
       { $sort: { postedDate: SortType.Down } },
-      { $limit: DEFAULT_OFFER_QTY },
+      { $limit: qty },
     ]).exec();
   }
 
   public async deleteById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
-    this.offerModel.aggregate();
+    await this.commentService.deleteByOfferId(offerId);
 
     return this.offerModel
       .findByIdAndDelete(offerId)

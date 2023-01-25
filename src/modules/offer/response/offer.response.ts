@@ -4,7 +4,7 @@ import UserResponse from '../../user/response/user.response.js';
 import {SafeUserType} from '../../../types/user.type';
 
 export default class OfferResponse {
-  @Expose({name: '_id'})
+  @Expose()
   public id!: string;
 
   @Expose()

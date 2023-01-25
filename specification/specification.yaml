@@ -88,7 +88,11 @@ paths:
                 items:
                   $ref: '#/components/schemas/offerDetailed'
 
-    post:
+        "400":
+          description: Некорректный id.
+
+
+    patch:
       tags:
         - offers
       summary: Редактирование существующего объявления пользователя.
@@ -103,7 +107,7 @@ paths:
         required: true
 
       responses:
-        "201":
+        "200":
           description: Объявление отредактировано. Объект объявления.
           content:
             application/json:
@@ -128,6 +132,9 @@ paths:
       responses:
         "200":
           description: Объявление удалено.
+
+        "400":
+          description: Некорректный id.
 
         "401":
           description: Пользователь не авторизован.
@@ -208,6 +215,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/offer'
 
+        "400":
+          description: Некорректный id.
+
         "401":
           description: Пользователь не авторизован.
 
@@ -220,6 +230,9 @@ paths:
       responses:
         "200":
           description: Предложение удалено из избранных.
+
+        "400":
+          description: Некорректный id.
 
         "401":
           description: Пользователь не авторизован.
@@ -554,6 +567,10 @@ components:
           type: number
           example: 5
 
+        user:
+          type: string
+          example: 63ce1b03b04f2962a9285bbb
+
     comment:
       type: object
 
@@ -566,7 +583,7 @@ components:
           type: number
           example: 5
 
-        createdAt:
+        postedDate:
           type: string
           format: date-time
 

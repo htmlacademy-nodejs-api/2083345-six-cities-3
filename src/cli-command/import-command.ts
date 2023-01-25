@@ -13,12 +13,14 @@ import {UserModel} from '../modules/user/user.entity.js';
 import {CreateOfferType} from '../types/offer.type.js';
 import {LoggerInterface} from '../common/logger/logger.interface.js';
 import {DatabaseInterface} from '../common/database-client/database.interface.js';
+import {CommentServiceInterface} from '../modules/comment/comment-service.interface';
 
 const DEFAULT_DB_PORT = 27017;
 const DEFAULT_USER_PASSWORD = '123456';
 
 export default class ImportCommand implements CliCommandInterface {
   public readonly name = '--import';
+  private commentService!: CommentServiceInterface;
   private userService!: UserServiceInterface;
   private offerService!: OfferServiceInterface;
   private databaseService!: DatabaseInterface;
@@ -30,7 +32,7 @@ export default class ImportCommand implements CliCommandInterface {
     this.onComplete = this.onComplete.bind(this);
 
     this.logger = new ConsoleLoggerService();
-    this.offerService = new OfferService(this.logger, OfferModel);
+    this.offerService = new OfferService(this.logger, OfferModel, this.commentService);
     this.userService = new UserService(this.logger, UserModel);
     this.databaseService = new DatabaseService(this.logger);
   }
