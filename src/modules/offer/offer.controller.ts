@@ -14,6 +14,7 @@ import UpdateOfferDto from './dto/update-offer.dto.js';
 import HttpError from '../../common/errors/http-error.js';
 import {ValidateObjectIdMiddleware} from '../../common/middlewares/validate-objectid.js';
 import {ValidateDtoMiddleware} from '../../common/middlewares/validate-dto.middleware.js';
+import {DocumentExistsMiddleware} from '../../common/middlewares/document-exists.middleware.js';
 
 @injectable()
 export default class OfferController extends Controller {
@@ -35,29 +36,34 @@ export default class OfferController extends Controller {
       path: '/:offerId',
       method: HttpMethod.Get,
       handler: this.findById,
-      middlewares: [new ValidateObjectIdMiddleware('offerId')]});
+      middlewares: [new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')]});
     this.addRoute({
       path: '/:offerId',
       method: HttpMethod.Patch,
       handler: this.updateById,
-      middlewares: [new ValidateObjectIdMiddleware('offerId'), new ValidateDtoMiddleware(UpdateOfferDto)]});
+      middlewares: [new ValidateObjectIdMiddleware('offerId'), new ValidateDtoMiddleware(UpdateOfferDto),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')]});
     this.addRoute({
       path: '/:offerId',
       method: HttpMethod.Delete,
       handler: this.deleteById,
-      middlewares: [new ValidateObjectIdMiddleware('offerId')]});
+      middlewares: [new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')]});
     this.addRoute({path: '/premium/:city', method: HttpMethod.Get, handler: this.findPremiumByCity});
     this.addRoute({path: '/favorite', method: HttpMethod.Get, handler: this.findFavorite}); // WIP - пока не работает
     this.addRoute({
       path: '/favorite/:offerId',
       method: HttpMethod.Post,
       handler: this.addFavorite,
-      middlewares: [new ValidateObjectIdMiddleware('offerId')]});
+      middlewares: [new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')]});
     this.addRoute({
       path: '/favorite/:offerId',
       method: HttpMethod.Delete,
       handler: this.removeFavorite,
-      middlewares: [new ValidateObjectIdMiddleware('offerId')]});
+      middlewares: [new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')]});
   }
 
   public async find(req: Request, res: Response): Promise<void> {

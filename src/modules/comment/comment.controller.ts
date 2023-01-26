@@ -13,6 +13,7 @@ import HttpError from '../../common/errors/http-error.js';
 import {OfferServiceInterface} from '../offer/offer-service.interface.js';
 import {ValidateObjectIdMiddleware} from '../../common/middlewares/validate-objectid.js';
 import {ValidateDtoMiddleware} from '../../common/middlewares/validate-dto.middleware.js';
+import {DocumentExistsMiddleware} from '../../common/middlewares/document-exists.middleware.js';
 
 @injectable()
 export default class CommentController extends Controller {
@@ -28,7 +29,8 @@ export default class CommentController extends Controller {
       path: '/:offerId',
       method: HttpMethod.Get,
       handler: this.findByOfferId,
-      middlewares: [new ValidateObjectIdMiddleware('offerId')]});
+      middlewares: [new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.commentService, 'Comments', 'offerId')]});
     this.addRoute({
       path: '/',
       method: HttpMethod.Post,

@@ -331,6 +331,17 @@ paths:
         "400":
           description: Токен не прошел валидацию.
 
+  /users/{userId}/avatar:
+    post:
+      tags:
+        - users
+      summary: Загрузка аватара пользователя.
+      description: Загружает аватар пользователя (.png, .jpg).
+
+      responses:
+        "201":
+          description: Успешная загрузка файла аватара.
+
 
   /comments/{offerId}:
     parameters:

@@ -4,9 +4,9 @@ import {inject, injectable} from 'inversify';
 import {LoggerInterface} from '../common/logger/logger.interface.js';
 import {ConfigInterface} from '../common/config/config.interface.js';
 import {Component} from '../types/component.types.js';
-import {DatabaseInterface} from '../common/database-client/database.interface';
+import {DatabaseInterface} from '../common/database-client/database.interface.js';
 import {getURI} from '../utils/db.js';
-import {ControllerInterface} from '../common/controller/controller.interface';
+import {ControllerInterface} from '../common/controller/controller.interface.js';
 import {ExceptionFilterInterface} from '../common/errors/exception-filter.interface.js';
 
 @injectable()
@@ -29,6 +29,10 @@ export default class Application {
 
   public initMiddleware() {
     this.expressApp.use(express.json());
+    this.expressApp.use(
+      '/uploads',
+      express.static(this.config.get('UPLOAD_DIRECTORY'))
+    );
   }
 
   public initRoutes() {
