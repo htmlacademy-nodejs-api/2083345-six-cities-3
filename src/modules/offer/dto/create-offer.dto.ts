@@ -5,7 +5,7 @@ import {
   IsArray,
   IsBoolean,
   IsDateString,
-  IsEnum, IsInt, IsMongoId, IsNumber, IsString, Max,
+  IsEnum, IsInt, IsNumber, IsString, Max,
   MaxLength, Min,
   MinLength, Validate
 } from 'class-validator';
@@ -76,6 +76,5 @@ export default class CreateOfferDto {
   @Validate(MatchCityCoordinates)
   public coordinates!: CoordinatesType;
 
-  @IsMongoId({message: '$property field must contain a valid id'})
   public user!: string;
 }

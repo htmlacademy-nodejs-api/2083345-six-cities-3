@@ -5,6 +5,9 @@ import CreateUserDto from './dto/create-user.dto.js';
 import {UserServiceInterface} from './user-service.interface.js';
 import {LoggerInterface} from '../../common/logger/logger.interface.js';
 import {Component} from '../../types/component.types.js';
+import LoginUserDto from './dto/login-user.dto.js';
+import mongoose from 'mongoose';
+import {OfferEntity} from '../offer/offer.entity';
 
 @injectable()
 export default class UserService implements UserServiceInterface {
@@ -27,6 +30,10 @@ export default class UserService implements UserServiceInterface {
     return this.userModel.findOne({email});
   }
 
+  public async findById(userId: string): Promise<DocumentType<UserEntity> | null> {
+    return this.userModel.findOne({'_id': userId});
+  }
+
   public async findOrCreate(dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>> {
     const existedUser = await this.findByEmail(dto.email);
 
@@ -35,5 +42,39 @@ export default class UserService implements UserServiceInterface {
     }
 
     return this.create(dto, salt);
+  }
+
+  public async verifyUser(dto: LoginUserDto, salt: string): Promise<DocumentType<UserEntity> | null> {
+    const user = await this.findByEmail(dto.email);
+
+    if (!user) {
+      return null;
+    }
+
+    if (user.verifyPassword(dto.password, salt)) {
+      return user;
+    }
+
+    return null;
+  }
+
+  public async addToFavoritesById(userId: string, offerId: string): Promise<DocumentType<OfferEntity>[] | null> {
+    return this.userModel
+      .findOneAndUpdate(
+        { '_id': userId },
+        {
+          $addToSet: { 'favorites': new mongoose.Types.ObjectId(offerId) }
+        },
+        { new: true, upsert: true });
+  }
+
+  public async removeFromFavoritesById(userId: string, offerId: string): Promise<DocumentType<OfferEntity>[] | null> {
+    return this.userModel
+      .findOneAndUpdate(
+        { '_id': userId },
+        {
+          $pull: { 'favorites': new mongoose.Types.ObjectId(offerId) }
+        },
+        { new: true });
   }
 }

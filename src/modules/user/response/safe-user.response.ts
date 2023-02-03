@@ -1,6 +1,6 @@
 import {Expose} from 'class-transformer';
 
-export default class UserResponse {
+export default class SafeUserResponse {
   @Expose()
   public id!: string;
 
@@ -15,7 +15,4 @@ export default class UserResponse {
 
   @Expose()
   public status!: string;
-
-  @Expose()
-  public favorites!: string;
 }

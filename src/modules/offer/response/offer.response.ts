@@ -1,7 +1,7 @@
 import {Expose, Type} from 'class-transformer';
-import {CoordinatesType} from '../../../types/coordinates.type';
-import UserResponse from '../../user/response/user.response.js';
-import {SafeUserType} from '../../../types/user.type';
+import {CoordinatesType} from '../../../types/coordinates.type.js';
+import {SafeUserType} from '../../../types/user.type.js';
+import SafeUserResponse from '../../user/response/safe-user.response.js';
 
 export default class OfferResponse {
   @Expose()
@@ -53,7 +53,7 @@ export default class OfferResponse {
   public coordinates!: CoordinatesType;
 
   @Expose()
-  @Type(() => UserResponse)
+  @Type(() => SafeUserResponse)
   public user!: SafeUserType;
 
   @Expose()

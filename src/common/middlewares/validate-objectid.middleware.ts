@@ -3,7 +3,6 @@ import {NextFunction, Request, Response} from 'express';
 import {StatusCodes} from 'http-status-codes';
 import {MiddlewareInterface} from '../../types/middleware.interface';
 import HttpError from '../errors/http-error.js';
-
 const {Types} = mongoose;
 
 export class ValidateObjectIdMiddleware implements MiddlewareInterface {

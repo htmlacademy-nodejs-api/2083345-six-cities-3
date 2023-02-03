@@ -72,9 +72,9 @@
         "name": "Helen",
         "email": "bigcat@mail.com",
         "avatarPath": "avt1.jpg",
-        "password": "splj3",
+        "password": "sodhgs3",
         "status": "Premium",
-        "favorites": "345;235;12"
+        "favorites": ""
       },
       {
         "name": "Ivan",
@@ -82,15 +82,15 @@
         "avatarPath": "avt2.jpg",
         "password": "fg635e",
         "status": "Standard",
-        "favorites": "50;112;567"
+        "favorites": ""
       },
       {
         "name": "Helen",
         "email": "bigcat@mail.com",
         "avatarPath": "avt3.jpg",
-        "password": "splj3",
+        "password": "sititij3",
         "status": "Premium",
-        "favorites": "427;643;979"
+        "favorites": ""
       },
       {
         "name": "Jason",
@@ -98,7 +98,7 @@
         "avatarPath": "avt4.jpg",
         "password": "kkjjkkk",
         "status": "Standard",
-        "favorites": "769;65;124"
+        "favorites": ""
       },
       {
         "name": "BiGMaN",
@@ -106,7 +106,7 @@
         "avatarPath": "avt5.jpg",
         "password": "sdfgjkjhgf",
         "status": "Standard",
-        "favorites": "553;674;1356"
+        "favorites": ""
       }
     ]
   }

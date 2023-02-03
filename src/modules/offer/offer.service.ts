@@ -9,25 +9,30 @@ import UpdateOfferDto from './dto/update-offer.dto.js';
 import {SortType} from '../../types/sort-type.enum.js';
 import mongoose from 'mongoose';
 import {DEFAULT_OFFER_QTY, DEFAULT_PREMIUM_OFFER_QTY, PROJECTED_FIELDS_FIND} from './offer.const.js';
-import {CommentServiceInterface} from '../comment/comment-service.interface';
+import {CommentServiceInterface} from '../comment/comment-service.interface.js';
+import {UserServiceInterface} from '../user/user-service.interface.js';
+import {UserEntity} from '../user/user.entity';
+
 
 @injectable()
 export default class OfferService implements OfferServiceInterface {
   constructor(
     @inject(Component.LoggerInterface) private readonly logger: LoggerInterface,
     @inject(Component.OfferModel) private readonly offerModel: types.ModelType<OfferEntity>,
+    @inject(Component.UserServiceInterface) private readonly userService: UserServiceInterface,
     @inject(Component.CommentServiceInterface) private readonly commentService: CommentServiceInterface,
   ) {}
 
   public async create(dto: CreateOfferDto): Promise<DocumentType<OfferEntity>> {
     const result = await this.offerModel.create(dto);
     this.logger.info(`New offer created: ${result.title}, ${result._id}`);
-
+    const userId = (result.user as mongoose.Types.ObjectId).toString();
+    result.user = await this.userService.findById(userId) as UserEntity;
     return result;
   }
 
-  public async findById(offerId: string): Promise<DocumentType<OfferEntity>[]> {
-    return this.offerModel
+  public async findById(offerId: string, userId: string | undefined): Promise<DocumentType<OfferEntity>[]> {
+    const result = await this.offerModel
       .aggregate([
         {
           $match: { '_id': new mongoose.Types.ObjectId(offerId) },
@@ -65,13 +70,15 @@ export default class OfferService implements OfferServiceInterface {
         },
         {
           $unwind: { path: '$user' }
-        }
+        },
+        { $addFields: { id: {$toString: '$_id' } } }
       ]).exec();
+    return await this.setFavorite(result, userId) as DocumentType<OfferEntity>[];
   }
 
-  public async find(limit?: number | null): Promise<DocumentType<OfferEntity>[]> {
+  public async find(userId: string | undefined, limit?: number | null): Promise<DocumentType<OfferEntity>[]> {
     const qty = limit ?? DEFAULT_OFFER_QTY;
-    return this.offerModel.aggregate([
+    const result = await this.offerModel.aggregate([
       {
         $lookup: {
           from: 'comments',
@@ -86,7 +93,9 @@ export default class OfferService implements OfferServiceInterface {
       { $project: PROJECTED_FIELDS_FIND },
       { $sort: { postedDate: SortType.Down } },
       { $limit: qty },
+      { $addFields: { id: {$toString: '$_id' } } }
     ]).exec();
+    return await this.setFavorite(result, userId) as DocumentType<OfferEntity>[];
   }
 
   public async deleteById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
@@ -118,7 +127,16 @@ export default class OfferService implements OfferServiceInterface {
         },
         {
           $set: { 'commentQty': { $size: '$commentQty'}, }
-        }
+        },
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'user',
+            foreignField: '_id',
+            as: 'user'
+          }
+        },
+        { $addFields: { id: {$toString: '$_id' } } }
       ]).exec();
   }
 
@@ -134,30 +152,68 @@ export default class OfferService implements OfferServiceInterface {
       }}).exec();
   }
 
-  public async findPremiumByCity(city: string): Promise<DocumentType<OfferEntity>[]> {
-    return this.offerModel
+  public async findPremiumByCity(city: string, userId: string | undefined): Promise<DocumentType<OfferEntity>[]> {
+    const result = await this.offerModel
       .find({city: city, premium: true})
       .select(PROJECTED_FIELDS_FIND)
       .sort({createdAt: SortType.Down})
       .limit(DEFAULT_PREMIUM_OFFER_QTY)
       .exec();
+    return await this.setFavorite(result, userId) as DocumentType<OfferEntity>[];
   }
 
-  public async findFavorites(): Promise<DocumentType<OfferEntity>[]> { // WIP
-    console.log('Not yet implemented');
+  public async findFavorites(userId: string): Promise<DocumentType<OfferEntity>[] | null> {
+    const user = await this.userService.findById(userId);
+
+    if (!user) {
+      return null;
+    }
+
     return this.offerModel
-      .find().exec();
+      .aggregate([
+        {
+          $match: {
+            _id: {
+              $in: user.favorites.map((id) => new mongoose.Types.ObjectId(id))
+            }
+          }
+        },
+        { $project: PROJECTED_FIELDS_FIND },
+        { $addFields: { id: {$toString: '$_id' } } }
+      ]).exec();
   }
 
-  public async addFavorite(offerId: string): Promise<DocumentType<OfferEntity>[]> { // WIP
-    console.log('Not yet implemented', offerId);
-    return this.offerModel
-      .find().exec();
+  public async addFavorite(userId: string, offerId: string): Promise<DocumentType<OfferEntity>[] | null> {
+    return this.userService.addToFavoritesById(userId, offerId);
   }
 
-  public async removeFavorite(offerId: string): Promise<DocumentType<OfferEntity>[]> { // WIP
-    console.log('Not yet implemented', offerId);
-    return this.offerModel
-      .find().exec();
+  public async removeFavorite(userId: string, offerId: string): Promise<DocumentType<OfferEntity>[] | null> {
+    return this.userService.removeFromFavoritesById(userId, offerId);
+  }
+
+  public async setFavorite(
+    data: DocumentType<OfferEntity>[] | DocumentType<OfferEntity>,
+    userId: string | unknown,
+  ): Promise<DocumentType<OfferEntity>[] | DocumentType<OfferEntity>> {
+
+    if (!userId) {
+      return data;
+    }
+
+    const currentUser = await this.userService.findById(userId as string);
+    if (!currentUser) {
+      return data;
+    }
+
+    const favorites = currentUser?.favorites.map((item) => item.toString()) as string[];
+    if (Array.isArray(data)) {
+      data.map((obj) => {
+        obj.favorite = favorites.includes(obj._id.toString());
+      });
+      return data;
+    }
+
+    data.favorite = favorites.includes(data._id.toString());
+    return data;
   }
 }

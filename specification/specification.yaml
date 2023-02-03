@@ -173,7 +173,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/offer'
 
-  /offers/favorite:
+  /offers/favorite/get:
     get:
       tags:
         - offers
