@@ -13,11 +13,13 @@ export type ConfigSchemaType = {
   DB_NAME: string;
   UPLOAD_DIRECTORY: string;
   JWT_SECRET: string;
+  STATIC_DIRECTORY_PATH: string;
+  HOST: string;
 }
 
 export const configSchema = convict<ConfigSchemaType>({
   PORT: {
-    doc: 'Port for incoming connections',
+    doc: 'Incoming connections port',
     format: 'port',
     env: 'PORT',
     default: 4000
@@ -35,7 +37,7 @@ export const configSchema = convict<ConfigSchemaType>({
     default: '127.0.0.1'
   },
   DB_USER: {
-    doc: 'Username to connect to the database (MongoDB)',
+    doc: 'Username for connecting to the database (MongoDB)',
     format: String,
     env: 'DB_USER',
     default: null,
@@ -47,7 +49,7 @@ export const configSchema = convict<ConfigSchemaType>({
     default: null,
   },
   DB_PORT: {
-    doc: 'Port to connect to the database (MongoDB)',
+    doc: 'Port for connecting to the database (MongoDB)',
     format: 'port',
     env: 'DB_PORT',
     default: 27017,
@@ -65,9 +67,21 @@ export const configSchema = convict<ConfigSchemaType>({
     default: null
   },
   JWT_SECRET: {
-    doc: 'Secret for sign JWT',
+    doc: 'Secret for signing JWT',
     format: String,
     env: 'JWT_SECRET',
     default: null
+  },
+  STATIC_DIRECTORY_PATH: {
+    doc: 'Path to static resources directory',
+    format: String,
+    env: 'STATIC_DIRECTORY_PATH',
+    default: 'static'
+  },
+  HOST: {
+    doc: 'Host where the service is started',
+    format: String,
+    env: 'HOST',
+    default: 'localhost'
   }
 });

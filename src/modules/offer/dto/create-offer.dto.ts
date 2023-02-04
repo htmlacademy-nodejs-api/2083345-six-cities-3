@@ -5,7 +5,7 @@ import {
   IsArray,
   IsBoolean,
   IsDateString,
-  IsEnum, IsInt, IsNumber, IsString, Max,
+  IsEnum, IsInt, IsNumber, IsOptional, IsString, Max,
   MaxLength, Min,
   MinLength, Validate
 } from 'class-validator';
@@ -32,6 +32,7 @@ export default class CreateOfferDto {
   @IsEnum(CityEnum, {message: '$property should be a value from CityEnum'})
   public city!: string;
 
+  @IsOptional()
   @IsString({message: '$property must be a string'})
   @Validate(ValidImageFormat)
   public imagePreview!: string;

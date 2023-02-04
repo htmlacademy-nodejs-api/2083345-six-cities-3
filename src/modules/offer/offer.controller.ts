@@ -16,14 +16,18 @@ import {ValidateObjectIdMiddleware} from '../../common/middlewares/validate-obje
 import {ValidateDtoMiddleware} from '../../common/middlewares/validate-dto.middleware.js';
 import {DocumentExistsMiddleware} from '../../common/middlewares/document-exists.middleware.js';
 import {PrivateRouteMiddleware} from '../../common/middlewares/private-route.middleware.js';
+import {ConfigInterface} from '../../common/config/config.interface.js';
+import {UploadFileMiddleware} from '../../common/middlewares/upload-file.middleware.js';
+import UploadImagePreviewResponse from './response/upload-image-preview.response.js';
 
 @injectable()
 export default class OfferController extends Controller {
   constructor(
     @inject(Component.LoggerInterface) logger: LoggerInterface,
+    @inject(Component.ConfigInterface) configService: ConfigInterface,
     @inject(Component.OfferServiceInterface) private readonly offerService: OfferServiceInterface,
   ) {
-    super(logger);
+    super(logger, configService);
     this.logger.info('Registering routes for OfferController…');
 
     this.addRoute({
@@ -104,11 +108,21 @@ export default class OfferController extends Controller {
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')
       ]
     });
+    this.addRoute({
+      path: '/:offerId/image-preview',
+      method: HttpMethod.Post,
+      handler: this.uploadImagePreview,
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateObjectIdMiddleware('offerId'),
+        new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), 'image'),
+      ]
+    });
   }
 
   public async find(req: Request, res: Response): Promise<void> {
     const limit = isNaN(Number(req.query.limit)) ? null : Number(req.query.limit);
-    const offers = await this.offerService.find(req.user.id, limit);
+    const offers = await this.offerService.find(req.user?.id, limit);
     const offersResponse = fillDTO(OffersResponse, offers);
     this.send(res, StatusCodes.OK, offersResponse);
   }
@@ -189,5 +203,11 @@ export default class OfferController extends Controller {
   public async removeFavorite(req: Request, res: Response): Promise<void> {
     await this.offerService.removeFavorite(req.user.id, req.params.offerId);
     this.ok(res, StatusCodes.OK);
+  }
+
+  public async uploadImagePreview(req: Request, res: Response) {
+    const updateDto = { imagePreview: req.file?.filename };
+    await this.offerService.updateById(req.params.offerId, updateDto);
+    this.created(res, fillDTO(UploadImagePreviewResponse, {updateDto}));
   }
 }

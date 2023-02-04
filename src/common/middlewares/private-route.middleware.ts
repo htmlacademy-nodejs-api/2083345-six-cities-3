@@ -4,8 +4,9 @@ import {MiddlewareInterface} from '../../types/middleware.interface.js';
 import HttpError from '../errors/http-error.js';
 
 export class PrivateRouteMiddleware implements MiddlewareInterface {
-  public async execute(req: Request, _res: Response, next: NextFunction): Promise<void> {
+  public async execute(req: Request, res: Response, next: NextFunction): Promise<void> {
     if (!req.user) {
+      res.status(StatusCodes.UNAUTHORIZED);
       throw new HttpError(
         StatusCodes.UNAUTHORIZED,
         'Unauthorized',

@@ -1,14 +1,9 @@
-import {IsEmail, IsEnum, IsString, MaxLength, MinLength, Validate} from 'class-validator';
-import {ValidImageFormat} from '../../../common/middlewares/validators/valid-image-format.validator.js';
+import {IsEmail, IsEnum, IsString, MaxLength, MinLength} from 'class-validator';
 import {UserTypeEnum} from '../../../types/user-type.enum.js';
 
 export default class CreateUserDto {
   @IsEmail({}, {message: '$property is not valid.'})
   public email!: string;
-
-  @IsString({message: '$property must be a valid string'})
-  @Validate(ValidImageFormat)
-  public avatarPath!: string;
 
   @IsString({message: '$property must be a valid string'})
   @MinLength(1, {message: '$property must be at least $constraint1 symbol long'})

@@ -14,15 +14,17 @@ import {OfferServiceInterface} from '../offer/offer-service.interface.js';
 import {ValidateObjectIdMiddleware} from '../../common/middlewares/validate-objectid.middleware.js';
 import {ValidateDtoMiddleware} from '../../common/middlewares/validate-dto.middleware.js';
 import {PrivateRouteMiddleware} from '../../common/middlewares/private-route.middleware.js';
+import {ConfigInterface} from '../../common/config/config.interface.js';
 
 @injectable()
 export default class CommentController extends Controller {
   constructor(
     @inject(Component.LoggerInterface) logger: LoggerInterface,
+    @inject(Component.ConfigInterface) configService: ConfigInterface,
     @inject(Component.CommentServiceInterface) private readonly commentService: CommentServiceInterface,
     @inject(Component.OfferServiceInterface) private readonly offerService: OfferServiceInterface,
   ) {
-    super(logger);
+    super(logger, configService);
     this.logger.info('Registering routes for CommentController…');
 
     this.addRoute({

@@ -19,7 +19,14 @@ tags:
 
 
 paths:
-  /offers:
+  /offers{?limit=}:
+    parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+          minimum: 1
     get:
       tags:
         - offers
@@ -35,6 +42,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/offer'
+        "498":
+          description: Неверный токен.
+
 
     post:
       tags:
@@ -64,6 +74,9 @@ paths:
         "401":
           description: Пользователь не авторизован.
 
+        "498":
+          description: Неверный токен.
+
   /offers/{offerId}:
     parameters:
       - in: path
@@ -88,8 +101,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/offerDetailed'
 
-        "400":
-          description: Некорректный id.
+        "404":
+          description: Объявление не найдено.
 
 
     patch:
@@ -120,8 +133,11 @@ paths:
         "401":
           description: Пользователь не авторизован.
 
-        "403":
-          description: Пользователь не обладает достаточными правами для изменения объявления.
+        "404":
+          description: Объявление не найдено.
+
+        "498":
+          description: Неверный токен.
 
     delete:
       tags:
@@ -133,14 +149,14 @@ paths:
         "200":
           description: Объявление удалено.
 
-        "400":
-          description: Некорректный id.
-
         "401":
           description: Пользователь не авторизован.
 
-        "403":
-          description: Пользователь не обладает достаточными правами для удаления объявления.
+        "404":
+          description: Объявление не найдено.
+
+        "498":
+          description: Неверный токен.
 
   /offers/premium/{city}:
     parameters:
@@ -164,7 +180,7 @@ paths:
       description: Запрос на получение списка премиальных предложений для конкретного города.
 
       responses:
-        "201":
+        "200":
           description: Объекты предложений.
           content:
             application/json:
@@ -172,6 +188,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/offer'
+
+        "498":
+          description: Неверный токен.
 
   /offers/favorite/get:
     get:
@@ -181,7 +200,7 @@ paths:
       description: Запрос на получение списка избранных предложений для конкретного города. Только для авторизованных пользователей.
 
       responses:
-        "201":
+        "200":
           description: Объекты избранных предложений.
           content:
             application/json:
@@ -189,6 +208,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/offer'
+
+        "401":
+          description: Пользователь не авторизован.
+
+        "498":
+          description: Неверный токен.
 
   /offers/favorite/{offerId}:
     parameters:
@@ -215,11 +240,14 @@ paths:
                 items:
                   $ref: '#/components/schemas/offer'
 
-        "400":
-          description: Некорректный id.
-
         "401":
           description: Пользователь не авторизован.
+
+        "404":
+          description: Объявление не найдено.
+
+        "498":
+          description: Неверный токен.
 
     delete:
       tags:
@@ -231,11 +259,14 @@ paths:
         "200":
           description: Предложение удалено из избранных.
 
-        "400":
-          description: Некорректный id.
-
         "401":
           description: Пользователь не авторизован.
+
+        "404":
+          description: Объявление не найдено.
+
+        "498":
+          description: Неверный токен.
 
   /users/register:
     post:
@@ -260,76 +291,58 @@ paths:
               schema:
                 $ref: '#/components/schemas/user'
 
-        "403":
-          description: Пользователь уже авторизован.
-
         "409":
-          description: Пользователь с таким email уже существует.
+          description: Пользователь с таким адресом почты уже зарегестрирован.
+
+        "498":
+          description: Неверный токен.
 
 
   /users/login:
     get:
       tags:
         - users
-      summary: Проверка состояния пользователя
+      summary: Проверка токена / состояния пользователя
       description: Возвращает информацию по статусу авторизации. Токен передается в header. WIP
 
       responses:
-        "201":
-          description: Пользователь авторизован. Токен пользователя.
+        "200":
+          description: Пользователь авторизован. Данные и токен пользователя.
           content:
-            X-token:
-              example: poXa87kj4oknEWO434N
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userLoginCheck'
 
-        "401":
-          description: Пользователь не авторизован.
+        "498":
+          description: Неверный токен.
 
     post:
       tags:
         - users
-      summary: Авторизация пользователя.
-      description: Авторизует пользователя по логину и паролю. Только для неавторизованных пользователей.
+      summary: Аунтефикация пользователя.
+      description: Аунтефицирует пользователя по логину и паролю. Только для неавторизованных пользователей.
 
       requestBody:
         description: Информация для аунтефикации.
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/userLogin'
+              $ref: '#/components/schemas/userLoginRequest'
         required: true
 
       responses:
-        "201":
+        "200":
           description: Успешная аунтефикация. Токен пользователя.
           content:
-            X-token:
-              example: poXa87kj4oknEWO434N
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userLoginResponse'
 
         "403":
-          description: Пользователь уже авторизован.
+          description: Неверные данные входа.
 
-        "400":
-          description: Введены некорректные данные / такого пользователя не существует.
-
-  /users/logout:
-    post:
-      tags:
-        - users
-      summary: Де-авторизует пользователя.
-      description: Выполняет выход из учетной записи пользователя. Только для авторизованных пользователей. Токен передается в header.
-
-      responses:
-        "201":
-          description: Пользователь авторизован. Токен пользователя.
-          content:
-            X-token:
-              example: poXa87kj4oknEWO434N
-
-        "200":
-          description: Успешный выход из учетной записи.
-
-        "400":
-          description: Токен не прошел валидацию.
+        "498":
+          description: Неверный токен.
 
   /users/{userId}/avatar:
     post:
@@ -342,11 +355,17 @@ paths:
         "201":
           description: Успешная загрузка файла аватара.
 
+        "401":
+          description: Пользователь не авторизован.
+
+        "498":
+          description: Неверный токен.
+
 
   /comments/{offerId}:
     parameters:
       - in: path
-        name: offerId   # Note the name is the same as in the path
+        name: offerId
         required: true
         schema:
           type: integer
@@ -359,7 +378,7 @@ paths:
       description: Запрашивает комментарии к объявлению. Не более 50 штук, отсортированы по новизне.
 
       responses:
-        "201":
+        "200":
           description: Список объектов комментариев.
           content:
             application/json:
@@ -367,6 +386,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/comment'
+
+        "404":
+          description: Объявление не найдено.
+
+        "498":
+          description: Неверный токен.
 
     post:
       tags:
@@ -389,12 +414,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/comment'
 
+        "401":
+          description: Пользователь не авторизован.
+
+        "404":
+          description: Объявление не найдено.
+
+        "498":
+          description: Неверный токен.
+
 components:
   schemas:
     offer:
       type: object
 
       properties:
+        id:
+          type: string
+          example: 63dbe7c4c8c402f6b33d4bb8
+
         title:
           type: string
           example: Комната на двоих
@@ -409,7 +447,7 @@ components:
 
         imagePreview:
           type: string
-          example: previews/943853
+          example: uploads/HuZKtoJwa2Zqlf-01aESz.png
 
         premium:
           type: boolean
@@ -441,7 +479,7 @@ components:
       properties:
         id:
           type: string
-          example: 63ce1d6467a156218d344acd
+          example: 63dbe7c4c8c402f6b33d4bb8
 
         title:
           type: string
@@ -461,13 +499,13 @@ components:
 
         imagePreview:
           type: string
-          example: previews/943853
+          example: uploads/HuZKtoJwa2Zqlf-01aESz.png
 
         images:
           type: array
           items:
             type: string
-          example: [images/340678.jpg, images/340679.jpg, images/340680.jpg, images/340682.jpg, images/340684.jpg, images/340685.jpg]
+          example: [uploads/HuZKtoJwa2Zqlf-01aESz.png, uploads/340679.jpg, uploads/340680.jpg, uploads/340682.jpg, uploads/340684.jpg, uploads/340685.jpg]
 
         premium:
           type: boolean
@@ -519,7 +557,24 @@ components:
           type: number
           example: 4
 
-    userLogin:
+    userLoginResponse:
+      type: object
+
+      properties:
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczZAb3Zlcmxvb2submV0IiwiaWQiOiI2M2RiZThkNjM5MmFlNmI3OWFhOWJmMGUiLCJpYXQiOjE2NzU0NDkxNjMsImV4cCI6MTY3NTYyMTk2M30.HZIAsFYCmZgXbTp4SyIUcfpHkCv-PR75mZsHM9-dOMQ
+        email:
+          type: string
+          example: keks@htmlacademy.ru
+        avatarPath:
+          type: string
+          example: http://localhost:4000/uploads/torrance.png
+        name:
+          type: string
+          example: Jake
+
+    userLoginRequest:
       type: object
 
       properties:
@@ -529,6 +584,20 @@ components:
         password:
           type: string
           example: 123456
+
+    userLoginCheck:
+      type: object
+
+      properties:
+        email:
+          type: string
+          example: keks@htmlacademy.ru
+        name:
+          type: string
+          example: Jake
+        avatarPath:
+          type: string
+          example: http://localhost:4000/uploads/torrance.png
 
     userCreate:
       type: object

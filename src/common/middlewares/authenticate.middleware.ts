@@ -5,10 +5,12 @@ import {createSecretKey} from 'crypto';
 import HttpError from '../errors/http-error.js';
 import {StatusCodes} from 'http-status-codes';
 
+const STATUS_CODE_INVALID_TOKEN = 498;
+
 export class AuthenticateMiddleware implements MiddlewareInterface {
   constructor(private readonly jwtSecret: string) {}
 
-  public async execute(req: Request, _res: Response, next: NextFunction): Promise<void> {
+  public async execute(req: Request, res: Response, next: NextFunction): Promise<void> {
     const authorizationHeader = req.headers?.authorization?.split(' ');
     if (!authorizationHeader) {
       return next();
@@ -22,7 +24,7 @@ export class AuthenticateMiddleware implements MiddlewareInterface {
 
       return next();
     } catch {
-
+      res.status(STATUS_CODE_INVALID_TOKEN);
       return next(new HttpError(
         StatusCodes.UNAUTHORIZED,
         'Invalid token',
