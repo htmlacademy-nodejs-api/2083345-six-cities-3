@@ -131,6 +131,7 @@ export default class OfferController extends Controller {
     req: Request<Record<string, unknown>, Record<string, unknown>, CreateOfferDto>,
     res: Response): Promise<void> {
 
+    console.log(req.user.id);
     const result = await this.offerService.create({...req.body, user: req.user.id});
     this.send(
       res,
@@ -196,13 +197,15 @@ export default class OfferController extends Controller {
   }
 
   public async addFavorite(req: Request, res: Response): Promise<void> {
-    await this.offerService.addFavorite(req.user.id, req.params.offerId);
-    this.ok(res, StatusCodes.OK);
+    const offer = await this.offerService.addFavorite(req.user.id, req.params.offerId);
+    const offerResponse = fillDTO(OfferResponse, offer);
+    this.send(res, StatusCodes.OK, offerResponse);
   }
 
   public async removeFavorite(req: Request, res: Response): Promise<void> {
-    await this.offerService.removeFavorite(req.user.id, req.params.offerId);
-    this.ok(res, StatusCodes.OK);
+    const offer = await this.offerService.removeFavorite(req.user.id, req.params.offerId);
+    const offerResponse = fillDTO(OfferResponse, offer);
+    this.send(res, StatusCodes.OK, offerResponse);
   }
 
   public async uploadImagePreview(req: Request, res: Response) {

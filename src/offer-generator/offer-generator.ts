@@ -30,12 +30,7 @@ export default class OfferGenerator implements OfferGeneratorInterface {
     const guests = getRandomInteger(GUESTS_QTY_RANGE[0], GUESTS_QTY_RANGE[1]);
     const price = getRandomInteger(PRICE_RANGE[0], PRICE_RANGE[1]);
     const features = getRandomSample<string>(this.mockData.featuresSelection, getRandomInteger(0, this.mockData.featuresSelection.length - 1));
-    const name = getRandomItem<ExtendedUserType>(this.mockData.users).name;
-    const email = getRandomItem<ExtendedUserType>(this.mockData.users).email;
-    const avatarPath = getRandomItem<ExtendedUserType>(this.mockData.users).avatarPath;
-    const password = getRandomItem<ExtendedUserType>(this.mockData.users).password;
-    const status = getRandomItem<ExtendedUserType>(this.mockData.users).status;
-    const favorites = getRandomItem<ExtendedUserType>(this.mockData.users).favorites;
+    const user = getRandomItem<ExtendedUserType>(this.mockData.users);
 
     return [
       title,
@@ -52,12 +47,12 @@ export default class OfferGenerator implements OfferGeneratorInterface {
       guests,
       price,
       features,
-      name,
-      email,
-      avatarPath,
-      password,
-      status,
-      favorites
+      user.name,
+      user.email,
+      user.avatarPath,
+      user.password,
+      user.status,
+      user.favorites
     ]
       .join('\t');
   }

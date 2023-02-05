@@ -1,4 +1,4 @@
-import {IsEmail, IsEnum, IsString, MaxLength, MinLength} from 'class-validator';
+import {IsEmail, IsEnum, IsOptional, IsString, MaxLength, MinLength} from 'class-validator';
 import {UserTypeEnum} from '../../../types/user-type.enum.js';
 
 export default class CreateUserDto {
@@ -18,7 +18,6 @@ export default class CreateUserDto {
   @IsEnum(UserTypeEnum, {message: '$property must be a value from UserTypeEnum'})
   public status!: string;
 
-  /*@IsArray({message: '$property must be an array'})
-  @IsMongoId({message: '$property should be a valid id', each: true})
-  public favorites!: string[];*/
+  @IsOptional()
+  public avatarPath?: string;
 }

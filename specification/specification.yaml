@@ -31,7 +31,7 @@ paths:
       tags:
         - offers
       summary: Получение набора объявлений.
-      description: Запрашивает набор объявлений (60 по умолчанию, получение другого числа объявлений осуществляется в параметре запроса WIP).
+      description: Запрашивает набор объявлений (60 по умолчанию, получение другого числа объявлений осуществляется в параметре запроса).
 
       responses:
         "200":
@@ -45,7 +45,7 @@ paths:
         "498":
           description: Неверный токен.
 
-
+  /offers:
     post:
       tags:
         - offers
@@ -97,9 +97,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/offerDetailed'
+                $ref: '#/components/schemas/offerDetailed'
 
         "404":
           description: Объявление не найдено.
@@ -231,14 +229,14 @@ paths:
       description: Добавляет предложение в список избранных. Только для авторизованных пользователей.
 
       responses:
-        "201":
-          description: Объекты избранных предложений.
+        "200":
+          description: Объект предложения.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/offer'
+                  $ref: '#/components/schemas/offerDetailed'
 
         "401":
           description: Пользователь не авторизован.
@@ -257,7 +255,13 @@ paths:
 
       responses:
         "200":
-          description: Предложение удалено из избранных.
+          description: Объект предложения.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/offerDetailed'
 
         "401":
           description: Пользователь не авторизован.
@@ -404,7 +408,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/commentNew'
+              $ref: '#/components/schemas/commentNewRequest'
 
       responses:
         "201":
@@ -629,37 +633,66 @@ components:
       properties:
         id:
           type: string
-          example: 6329c3d6a04ab1061c6425ea
+          example: 63de813ff73b6dac2842cf47
 
         email:
           type: string
           example: keks@htmlacademy.ru
 
-    commentNew:
+        name:
+          type: string
+          example: Keks
+
+        status:
+          type: string
+          example: Premium
+
+        avatarPath:
+          type: string
+          example: avatars/3849673.jpg
+
+        favorites:
+          type: array
+          items:
+            type: string
+
+    commentNewRequest:
       type: object
 
       properties:
+        offerId:
+          type: string
+          example: 63de813ff73b6dac2842cf47
+
         text:
           type: string
           example: Все супер!
 
-        rating:
+        rated:
           type: number
           example: 5
-
-        user:
-          type: string
-          example: 63ce1b03b04f2962a9285bbb
 
     comment:
       type: object
 
       properties:
+        id:
+          type: string
+          example: 63de88c039bd85be042e0a6b
+
+        offerId:
+          type: string
+          example: 63de813ff73b6dac2842caa3
+
+        user:
+          type:
+          $ref: '#/components/schemas/user'
+
         text:
           type: string
           example: Все супер!
 
-        rating:
+        rated:
           type: number
           example: 5
 

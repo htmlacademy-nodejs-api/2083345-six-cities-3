@@ -1,5 +1,4 @@
 import {Expose} from 'class-transformer';
-import {UserType} from '../../../types/user.type';
 
 export default class OffersResponse {
   @Expose()
@@ -33,5 +32,5 @@ export default class OffersResponse {
   public price!: number;
 
   @Expose()
-  public commentQty!: UserType;
+  public commentQty!: number;
 }

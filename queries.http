@@ -6,7 +6,7 @@ GET http://localhost:3123/api HTTP/1.1
 # Предложения
 ## Получить список предложений
 
-GET http://localhost:4000/offers?limit=10 HTTP/1.1
+GET http://localhost:4000/offers?limit=20 HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczZAb3Zlcmxvb2submV0IiwiaWQiOiI2M2RiZThkNjM5MmFlNmI3OWFhOWJmMGUiLCJpYXQiOjE2NzU0NDY2NzAsImV4cCI6MTY3NTYxOTQ3MH0.rfvinnJ1gu8Q4Axzz1vgdSNiKFb5SW_nIWCzAJ5PNCo
 
 
@@ -16,7 +16,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczZAb3Zlcmxvb2sub
 
 POST http://localhost:4000/offers HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczZAb3Zlcmxvb2submV0IiwiaWQiOiI2M2RiZThkNjM5MmFlNmI3OWFhOWJmMGUiLCJpYXQiOjE2NzU0NDY2NzAsImV4cCI6MTY3NTYxOTQ3MH0.rfvinnJ1gu8Q4Axzz1vgdSNiKFb5SW_nIWCzAJ5PNCo
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczhAb3Zlcmxvb2submV0IiwiaWQiOiI2M2RlODEzZmY3M2I2ZGFjMjg0MmNmNDciLCJpYXQiOjE2NzU1MjczNzQsImV4cCI6MTY3NTcwMDE3NH0.Hougk8F6MNW40wTL-PAK2Bbvvu0e_00kGriCSOPe7Fo
 
 
 {
@@ -24,9 +24,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczZAb3Zlcmxvb2sub
   "description": "TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST",
   "postedDate": "2030-04-06T08:45:40.283Z",
   "city": "Hamburg",
-  "imagePreview": "image99.png",
+  "imagePreview": "https://www.google.com/file/35.jpg",
   "images": [
-    "image1.png", "image2.png", "image3.png", "image4.png", "image5.png", "image100.png"
+    "https://www.google.com/file/35.jpg", "https://www.google.com/file/35.jpg", "https://www.google.com/file/35.jpg", "https://www.google.com/file/35.jpg", "https://www.google.com/file/35.jpg", "https://www.google.com/file/35.jpg"
   ],
   "premium": true,
   "favorite": true,
@@ -35,7 +35,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczZAb3Zlcmxvb2sub
   "rooms": 6,
   "guests": 1,
   "price": 10000,
-  "features": [],
+  "features": ["Air Conditioning", "Washer", "Towels"],
   "coordinates": {
     "latitude": "53.550341",
     "longitude": "10.000654"
@@ -48,7 +48,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczZAb3Zlcmxvb2sub
 
 PATCH http://localhost:4000/offers/63dbe7c4c8c402f6b33d4b70 HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczZAb3Zlcmxvb2submV0IiwiaWQiOiI2M2RiZThkNjM5MmFlNmI3OWFhOWJmMGUiLCJpYXQiOjE2NzU0NDY2NzAsImV4cCI6MTY3NTYxOTQ3MH0.rfvinnJ1gu8Q4Axzz1vgdSNiKFb5SW_nIWCzAJ5PNCo
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczhAb3Zlcmxvb2submV0IiwiaWQiOiI2M2RlODEzZmY3M2I2ZGFjMjg0MmNmNDciLCJpYXQiOjE2NzU1MjczNzQsImV4cCI6MTY3NTcwMDE3NH0.Hougk8F6MNW40wTL-PAK2Bbvvu0e_00kGriCSOPe7Fo
 
 
 {
@@ -78,8 +78,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczZAb3Zlcmxvb2sub
 
 ## Получить конкретное предложение по offerId
 
-GET http://localhost:4000/offers/63dbdaa12b280076f4626107 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczZAb3Zlcmxvb2submV0IiwiaWQiOiI2M2RiZThkNjM5MmFlNmI3OWFhOWJmMGUiLCJpYXQiOjE2NzU0NDY2NzAsImV4cCI6MTY3NTYxOTQ3MH0.rfvinnJ1gu8Q4Axzz1vgdSNiKFb5SW_nIWCzAJ5PNCo
+GET http://localhost:4000/offers/63de60bd9ee86dc4fa0bf715 HTTP/1.1
 
 
 ###
@@ -103,23 +102,23 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczZAb3Zlcmxvb2sub
 ## Получить список favorite-предложений авторизованного пользователя
 
 GET http://localhost:4000/offers/favorite/get HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczZAb3Zlcmxvb2submV0IiwiaWQiOiI2M2RiZThkNjM5MmFlNmI3OWFhOWJmMGUiLCJpYXQiOjE2NzU0NDY2NzAsImV4cCI6MTY3NTYxOTQ3MH0.rfvinnJ1gu8Q4Axzz1vgdSNiKFb5SW_nIWCzAJ5PNCo
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImRlbW9uQGhlbGwuY29tIiwiaWQiOiI2M2RlYmMzNmM1M2VjOGMwMzgwYjFkM2EiLCJpYXQiOjE2NzU1NDE2MzcsImV4cCI6MTY3NTcxNDQzN30.ScqpKoWEHEZXTc1rM7_u6ElMYguhPHsHkYdDJ_qO9lc
 
 
 ###
 
 ## Добавить предложение в список "избранное" авторизованного пользователя
 
-POST http://localhost:4000/offers/favorite/63c2121c428d47704ecaebe9 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczZAb3Zlcmxvb2submV0IiwiaWQiOiI2M2RiZThkNjM5MmFlNmI3OWFhOWJmMGUiLCJpYXQiOjE2NzU0NDY2NzAsImV4cCI6MTY3NTYxOTQ3MH0.rfvinnJ1gu8Q4Axzz1vgdSNiKFb5SW_nIWCzAJ5PNCo
+POST http://localhost:4000/offers/favorite/63de60bc9ee86dc4fa0bf603 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczhAb3Zlcmxvb2submV0IiwiaWQiOiI2M2RlODEzZmY3M2I2ZGFjMjg0MmNmNDciLCJpYXQiOjE2NzU1MjczNzQsImV4cCI6MTY3NTcwMDE3NH0.Hougk8F6MNW40wTL-PAK2Bbvvu0e_00kGriCSOPe7Fo
 
 
 ###
 
 ## Удалить предложение из списка "избранное" авторизованного пользователя
 
-DELETE http://localhost:4000/offers/favorite/63c2121c428d47704ecaebe9 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczZAb3Zlcmxvb2submV0IiwiaWQiOiI2M2RiZThkNjM5MmFlNmI3OWFhOWJmMGUiLCJpYXQiOjE2NzU0NDY2NzAsImV4cCI6MTY3NTYxOTQ3MH0.rfvinnJ1gu8Q4Axzz1vgdSNiKFb5SW_nIWCzAJ5PNCo
+DELETE http://localhost:4000/offers/favorite/63de60bc9ee86dc4fa0bf603 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczhAb3Zlcmxvb2submV0IiwiaWQiOiI2M2RlODEzZmY3M2I2ZGFjMjg0MmNmNDciLCJpYXQiOjE2NzU1MjczNzQsImV4cCI6MTY3NTcwMDE3NH0.Hougk8F6MNW40wTL-PAK2Bbvvu0e_00kGriCSOPe7Fo
 
 
 ###
@@ -128,8 +127,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczZAb3Zlcmxvb2sub
 # Комментарии
 ## Получить список комментариев к объявлению
 
-GET http://localhost:4000/comments/63dbe7c4c8c402f6b33d4b70 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczZAb3Zlcmxvb2submV0IiwiaWQiOiI2M2RiZThkNjM5MmFlNmI3OWFhOWJmMGUiLCJpYXQiOjE2NzU0NDY2NzAsImV4cCI6MTY3NTYxOTQ3MH0.rfvinnJ1gu8Q4Axzz1vgdSNiKFb5SW_nIWCzAJ5PNCo
+GET http://localhost:4000/comments/63de60bc9ee86dc4fa0bf603 HTTP/1.1
 
 
 ###
@@ -138,12 +136,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczZAb3Zlcmxvb2sub
 
 POST http://localhost:4000/comments HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczZAb3Zlcmxvb2submV0IiwiaWQiOiI2M2RiZThkNjM5MmFlNmI3OWFhOWJmMGUiLCJpYXQiOjE2NzUxOTc3MzAsImV4cCI6MTY3NTM3MDUzMH0.UxvWvBVh5su1nNQu_KXlMnFDqWd4jRQ9ni4eQt3855g
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczhAb3Zlcmxvb2submV0IiwiaWQiOiI2M2RlYzI5NDg3Mzg1MWMzYTcyNDUyN2QiLCJpYXQiOjE2NzU1NDMzMDAsImV4cCI6MTY3NTcxNjEwMH0.xl302yhW5pjxaM5tjwZcLRmswNjQftWaFKIXM5Ruf2Q
 
 
 {
  "text": "Текст комментария!",
- "offerId": "63dbe7c4c8c402f6b33d4b70",
+ "offerId": "63debc36c53ec8c0380b1d52",
  "rated": 4
 }
 
@@ -173,7 +171,7 @@ Content-Type: application/json
 
 
 {
- "email": "torans6@overlook.net",
+ "email": "torans8@overlook.net",
  "password": "shining"
 }
 
@@ -182,8 +180,7 @@ Content-Type: application/json
 ## Проверка токена пользователя
 
 GET http://localhost:4000/users/login HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczZAb3Zlcmxvb2submV0IiwiaWQiOiI2M2RiZThkNjM5MmFlNmI3OWFhOWJmMGUiLCJpYXQiOjE2NzU0NDY2NzAsImV4cCI6MTY3NTYxOTQ3MH0.rfvinnJ1gu8Q4Axzz1vgdSNiKFb5SW_nIWCzAJ5PNCo
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImRlbW9uQGhlbGwuY29tIiwiaWQiOiI2M2RlYmMzNmM1M2VjOGMwMzgwYjFkM2EiLCJpYXQiOjE2NzU1NDE2MzcsImV4cCI6MTY3NTcxNDQzN30.ScqpKoWEHEZXTc1rM7_u6ElMYguhPHsHkYdDJ_qO9lc
 ###
 
 ## Загрузка аватарки пользователю
@@ -197,12 +194,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuczZAb3Zlcmxvb2sub
 Content-Disposition: form-data; name="avatar"; filename="image.png"
 Content-Type: image/png
 
-< ./static/default-avatar.jpg
+< ./static/default-avatar.png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ###
 
-## Загрузка изображения для объявления // WIP
+## Загрузка изображения для объявления
 
 POST http://localhost:4000/offers/63dbdaa12b280076f4626107/image-preview HTTP/1.1
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW

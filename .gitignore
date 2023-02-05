@@ -5,10 +5,12 @@
 /dist/
 /docs/
 .idea/*
-
 .DS_Store
 coverage
 *.log
 *.env
 /mongodb/
-/uploads/
+
+/uploads/*
+!/uploads/default-avatar.*
+

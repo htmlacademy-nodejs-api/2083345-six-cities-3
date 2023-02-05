@@ -36,7 +36,7 @@ export const createOffer = (row: string): CreateOfferType => {
   return {
     title,
     description,
-    postedDate: new Date(postedDate),
+    postedDate: postedDate,
     city,
     coordinates: {
       latitude: coordinates.split(';')[0],

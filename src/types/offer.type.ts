@@ -4,7 +4,7 @@ import {CoordinatesType} from './coordinates.type.js';
 export type OfferType = {
   title: string;
   description: string;
-  postedDate: Date;
+  postedDate: string;
   city: string;
   imagePreview: string;
   images: string[];
@@ -23,7 +23,7 @@ export type OfferType = {
 export type CreateOfferType = {
   title: string;
   description: string;
-  postedDate: Date;
+  postedDate: string;
   city: string;
   imagePreview: string;
   images: string[];
