@@ -32,24 +32,24 @@
       "Dusseldorf"
     ],
     "imagePreviews": [
-      "/static/room1.jpg",
-      "/static/room2.jpg",
-      "/static/room3.jpg",
-      "/static/room4.jpg",
-      "/static/room5.jpg",
-      "/static/room6.jpg",
-      "/static/room7.jpg",
-      "/static/room8.jpg"
+      "http://localhost:4000/static/room1.jpg",
+      "http://localhost:4000/static/room2.jpg",
+      "http://localhost:4000/static/room3.jpg",
+      "http://localhost:4000/static/room4.jpg",
+      "http://localhost:4000/static/room5.jpg",
+      "http://localhost:4000/static/room6.jpg",
+      "http://localhost:4000/static/room7.jpg",
+      "http://localhost:4000/static/room8.jpg"
     ],
     "imagesSelection": [
-      "/static/room1.jpg",
-      "/static/room2.jpg",
-      "/static/room3.jpg",
-      "/static/room4.jpg",
-      "/static/room5.jpg",
-      "/static/room6.jpg",
-      "/static/room7.jpg",
-      "/static/room8.jpg"
+      "http://localhost:4000/static/room1.jpg",
+      "http://localhost:4000/static/room2.jpg",
+      "http://localhost:4000/static/room3.jpg",
+      "http://localhost:4000/static/room4.jpg",
+      "http://localhost:4000/static/room5.jpg",
+      "http://localhost:4000/static/room6.jpg",
+      "http://localhost:4000/static/room7.jpg",
+      "http://localhost:4000/static/room8.jpg"
     ],
     "types": [
       "Apartment",

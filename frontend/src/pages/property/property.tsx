@@ -26,7 +26,6 @@ import {
 import { getUser } from '../../store/user-process/selectors';
 import Bookmark from '../../components/bookmark/bookmark';
 import { AppRoute, UserType } from '../../const';
-import {BACKEND_URL} from '../../api';
 
 const Property = (): JSX.Element | null => {
   const params = useParams();
@@ -105,7 +104,7 @@ const Property = (): JSX.Element | null => {
             <div className="property__gallery">
               {images.map((image) => (
                 <div key={image} className="property__image-wrapper">
-                  <img className="property__image" src={`${BACKEND_URL}${image}`} alt="Studio" />
+                  <img className="property__image" src={image} alt="Studio" />
                 </div>
               ))}
             </div>
